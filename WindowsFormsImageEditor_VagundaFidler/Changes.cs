@@ -39,6 +39,17 @@ namespace WindowsFormsImageEditor_VagundaFidler
                     }
                 }
             }
+            if (LoadedImg.BM_BitsPerPixel == 8) {
+                for (int i = 0; i < ChangedImg.ColorPalette.Length; i++) {
+                    int r = LoadedImg.ColorPalette[i].R;
+                    int g = LoadedImg.ColorPalette[i].G;
+                    int b = LoadedImg.ColorPalette[i].B;
+                    int avg = (r + g + b) / 3;
+                    ChangedImg.ColorPalette[i].R = avg;
+                    ChangedImg.ColorPalette[i].G = avg;
+                    ChangedImg.ColorPalette[i].B = avg;
+                }                
+            }
             ChangedImg.SavePictureToFile("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp");
         }
     }

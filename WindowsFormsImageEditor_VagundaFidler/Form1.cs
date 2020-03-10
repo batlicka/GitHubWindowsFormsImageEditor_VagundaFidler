@@ -80,27 +80,15 @@ namespace WindowsFormsImageEditor_VagundaFidler
             MessageBox.Show("clicked mirroring");
         }
 
-        private void refresh_Click(object sender, EventArgs e)
-        {
-            Image img;
-            //reason described here
-            //https://stackoverflow.com/questions/4803935/free-file-locked-by-new-bitmapfilepath/8701748#8701748
-            using (var bmpTemp = new Bitmap("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp"))
-            {
-                img = new Bitmap(bmpTemp);
-                image2.Image = img;
-            }
-
-        }
-
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
 
         }
 
         private void UpdateRightFrame() {
+            //reason described here
+            //https://stackoverflow.com/questions/4803935/free-file-locked-by-new-bitmapfilepath/8701748#8701748
             Image img;
-
             using (var bmpTemp = new Bitmap("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp"))
             {
                 img = new Bitmap(bmpTemp);
