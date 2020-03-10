@@ -40,10 +40,10 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.image2 = new System.Windows.Forms.PictureBox();
-            this.refresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.image1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -52,10 +52,9 @@
             // 
             // image1
             // 
-            this.image1.Location = new System.Drawing.Point(12, 96);
+            this.image1.Location = new System.Drawing.Point(15, 96);
             this.image1.Name = "image1";
             this.image1.Size = new System.Drawing.Size(438, 327);
-            this.image1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.image1.TabIndex = 0;
             this.image1.TabStop = false;
             // 
@@ -112,7 +111,8 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton1,
-            this.toolStripButton2});
+            this.toolStripButton2,
+            this.toolStripButton3});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(959, 25);
@@ -138,6 +138,16 @@
             this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton2.Text = "GeyScale";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = global::WindowsFormsImageEditor_VagundaFidler.Properties.Resources.pen;
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton3.Text = "toDoVojta";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // label1
             // 
@@ -165,22 +175,11 @@
             this.image2.TabIndex = 6;
             this.image2.TabStop = false;
             // 
-            // refresh
-            // 
-            this.refresh.Location = new System.Drawing.Point(624, 69);
-            this.refresh.Name = "refresh";
-            this.refresh.Size = new System.Drawing.Size(75, 23);
-            this.refresh.TabIndex = 7;
-            this.refresh.Text = "button1";
-            this.refresh.UseVisualStyleBackColor = true;
-            this.refresh.Click += new System.EventHandler(this.refresh_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(959, 435);
-            this.Controls.Add(this.refresh);
             this.Controls.Add(this.image2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -218,7 +217,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox image2;
-        private System.Windows.Forms.Button refresh;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
     }
 }
 
