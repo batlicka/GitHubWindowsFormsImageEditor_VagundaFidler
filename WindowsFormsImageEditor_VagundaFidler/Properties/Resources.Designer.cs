@@ -79,5 +79,25 @@ namespace WindowsFormsImageEditor_VagundaFidler.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap preklopit_horizontaly {
+            get {
+                object obj = ResourceManager.GetObject("preklopit_horizontaly", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rotate90degree {
+            get {
+                object obj = ResourceManager.GetObject("rotate90degree", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

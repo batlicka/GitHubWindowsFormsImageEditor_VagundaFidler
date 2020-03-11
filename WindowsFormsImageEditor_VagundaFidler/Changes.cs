@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsFormsImageEditor_VagundaFidler
+namespace WindowsFormsImageEditor_VagundaFidler 
 {
     class Changes
     {
@@ -37,7 +37,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
                         //set new pixel value
 
                     }
-                }
+                }                
             }
             if (LoadedImg.BM_BitsPerPixel == 8) {
                 for (int i = 0; i < ChangedImg.ColorPalette.Length; i++) {
@@ -51,6 +51,50 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 }                
             }
             ChangedImg.SavePictureToFile("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp");
+        }
+
+        public void MirroringHorizontaly() {
+            //mirroring 24bit picture
+            if (LoadedImg.BM_BitsPerPixel == 24) {
+                for (uint column = 0; column < LoadedImg.BM_Height; column++)
+                {
+                    for (uint row = 0; row < LoadedImg.BM_Width; row++)
+                    {
+                        ChangedImg.pixelArr[column, row] = LoadedImg.pixelArr[ column, LoadedImg.BM_Width - row-1];
+                    }
+                }
+            }            
+            ChangedImg.SavePictureToFile("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp");
+
+        }
+
+        public void MirroringVerticaly()
+        {
+            //mirroring 24bit picture
+            if (LoadedImg.BM_BitsPerPixel == 24)
+            {
+                for (uint column = 0; column < LoadedImg.BM_Height; column++)
+                {
+                    for (uint row = 0; row < LoadedImg.BM_Width; row++)
+                    {
+                        ChangedImg.pixelArr[column, row] = LoadedImg.pixelArr[LoadedImg.BM_Height - column - 1,  row ];
+                    }
+                }
+            }
+            ChangedImg.SavePictureToFile("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp");
+
+        }
+
+        public void Rotate90() {
+            //normalne [vyska,sirka] po otoceni [sirka, vyska]
+            VColor[,] pixelArrDest= new VColor[LoadedImg.BM_Width, LoadedImg.BM_Height];
+            for (int r = 0; r < LoadedImg.BM_Height; r++)
+            {
+                for (int c = 0; c < LoadedImg.BM_Width; c++)
+                {                    
+                    pixelArrDest[c,(LoadedImg.BM_Height - r - 1)] = LoadedImg.pixelArr[r , c];
+                }
+            }
         }
     }
 }

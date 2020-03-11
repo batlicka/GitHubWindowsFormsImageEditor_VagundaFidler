@@ -71,13 +71,18 @@ namespace WindowsFormsImageEditor_VagundaFidler
             Changes ChangedPicture = new Changes(LoadedImg, ChangedImg);
             ChangedPicture.GreyScale();
             UpdateRightFrame();
+            LoadedImg = ChangedImg;
             
         }
 
+        //flip verticaly
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-
-            MessageBox.Show("clicked mirroring");
+            Changes ChangedPicture = new Changes(LoadedImg, ChangedImg);
+            ChangedPicture.MirroringHorizontaly();
+            UpdateRightFrame();
+            LoadedImg = ChangedImg;
+            //MessageBox.Show("clicked mirroring");
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -95,6 +100,20 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 image2.Image = img;
             }
         }
-        
+
+        //flip horizontaly
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {            
+            Changes ChangedPicture = new Changes(LoadedImg, ChangedImg);
+            ChangedPicture.MirroringVerticaly();
+            UpdateRightFrame();
+            LoadedImg = ChangedImg;
+        }
+
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+            Changes ChangedPicture = new Changes(LoadedImg, ChangedImg);
+            ChangedPicture.Rotate90();
+        }
     }
 }

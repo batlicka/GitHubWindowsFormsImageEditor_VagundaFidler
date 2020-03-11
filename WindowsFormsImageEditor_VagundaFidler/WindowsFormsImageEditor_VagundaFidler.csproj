@@ -89,5 +89,11 @@
   <ItemGroup>
     <None Include="Resources\pen.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\preklopit_horizontaly.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rotate90degree.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
