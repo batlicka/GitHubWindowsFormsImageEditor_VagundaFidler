@@ -86,15 +86,37 @@ namespace WindowsFormsImageEditor_VagundaFidler
         }
 
         public void Rotate90() {
+            //int height = 2;
+            //int width = 4;
+
+            //int [,]ArrSource =new int[height, width];
+            //int[,] ArrDest = new int[width, height];
+
+            //ArrSource[0, 0] = 1; ArrSource[0, 1] = 2; ArrSource[0, 2] = 3; ArrSource[0, 3] = 4;
+            //ArrSource[1, 0] = 5; ArrSource[1, 1] = 6; ArrSource[1, 2] = 7; ArrSource[1, 3] = 8;
+
+
+            //for (int r = 0; r < height; r++)
+            //{
+            //    for (int c = 0; c < width; c++)
+            //    {
+            //        ArrDest[c, (height - r - 1)] = ArrSource[r, c];
+            //    }
+            //}
             //normalne [vyska,sirka] po otoceni [sirka, vyska]
-            VColor[,] pixelArrDest= new VColor[LoadedImg.BM_Width, LoadedImg.BM_Height];
-            for (int r = 0; r < LoadedImg.BM_Height; r++)
-            {
-                for (int c = 0; c < LoadedImg.BM_Width; c++)
-                {                    
-                    pixelArrDest[c,(LoadedImg.BM_Height - r - 1)] = LoadedImg.pixelArr[r , c];
-                }
-            }
+
+
+            //uint NewRowByte = 
+            //uint length = LoadedImg.BM_Offset + (LoadedImg.BM_Height+LoadedImg.Ro);
+            //byte[] buffResized= new byte[length];
+            //VColor[,] pixelArrDest= new VColor[LoadedImg.BM_Width, LoadedImg.BM_Height];
+            //for (int r = 0; r < LoadedImg.BM_Height; r++)
+            //{
+            //    for (int c = 0; c < LoadedImg.BM_Width; c++)
+            //    {                    
+            //        pixelArrDest[c,(LoadedImg.BM_Height - r - 1)] = LoadedImg.pixelArr[r , c];
+            //    }
+            //}
         }
     }
 }
