@@ -8,8 +8,8 @@ namespace WindowsFormsImageEditor_VagundaFidler
 {
     class Changes
     {
-        public BitMap LoadedImg { get; private set; } //4B-biSize
-        public BitMap ChangedImg { get; private set; } //4B-biSize
+        public BitMap LoadedImg { get; set; } //4B-biSize
+        public BitMap ChangedImg { get; set; } //4B-biSize
 
         public Changes(BitMap LoadedImg, BitMap ChangedImg) {
             this.LoadedImg = LoadedImg;
@@ -18,6 +18,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
         public void GreyScale()
         {
+
             if (LoadedImg.BM_BitsPerPixel == 24)
             {
                 for (int y = 0; y < LoadedImg.BM_Height; y++)
@@ -105,12 +106,12 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 uint NewBuffLength = ChangedImg.BM_Offset + (ChangedImg.RowLength) * ChangedImg.BM_Height;
                 byte[] buffResized = new byte[NewBuffLength];                
 
-                VColor[,] pixelArrDest = new VColor[LoadedImg.BM_Width, LoadedImg.BM_Height];
-                for (int r = 0; r < LoadedImg.BM_Height; r++)
+                VColor[,] pixelArrDest = new VColor[ChangedImg.BM_Height, ChangedImg.BM_Width];
+                for (int r = 0; r < ChangedImg.BM_Width; r++)
                 {
-                    for (int c = 0; c < LoadedImg.BM_Width; c++)
+                    for (int c = 0; c < ChangedImg.BM_Height; c++)
                     {
-                        pixelArrDest[c, (LoadedImg.BM_Height - r - 1)] = LoadedImg.pixelArr[r, c];
+                        pixelArrDest[c, (ChangedImg.BM_Width - r - 1)] = ChangedImg.pixelArr[r, c];
                     }
                 }
                 //set new created pixelArr
@@ -148,12 +149,12 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 uint NewBuffLength = ChangedImg.BM_Offset + (ChangedImg.RowLength) * ChangedImg.BM_Height;
                 byte[] buffResized = new byte[NewBuffLength];
 
-                VColor[,] pixelArrDest = new VColor[LoadedImg.BM_Width, LoadedImg.BM_Height];
-                for (int r = 0; r < LoadedImg.BM_Height; r++)
+                VColor[,] pixelArrDest = new VColor[ChangedImg.BM_Height,ChangedImg.BM_Width];
+                for (int r = 0; r < ChangedImg.BM_Width; r++)
                 {
-                    for (int c = 0; c < LoadedImg.BM_Width; c++)
+                    for (int c = 0; c < ChangedImg.BM_Height; c++)
                     {
-                        pixelArrDest[c, r] = LoadedImg.pixelArr[r, LoadedImg.BM_Width-1 -c];
+                        pixelArrDest[c, r] = ChangedImg.pixelArr[r, ChangedImg.BM_Height - 1 -c];
                     }
                 }
                 //set new created pixelArr
