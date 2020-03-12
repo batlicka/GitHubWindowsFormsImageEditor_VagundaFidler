@@ -19,11 +19,13 @@ namespace WindowsFormsImageEditor_VagundaFidler
         public String PathToChangedPicture { get; set; }
         public bool SettingsDone { get; set; }
 
+        public bool FlipHoriz { get; set; }
         public Form1()
         {
             InitializeComponent();
             PathToChangedPicture = "d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp";
-            SettingsDone = true;           
+            SettingsDone = false;
+            FlipHoriz = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -80,12 +82,16 @@ namespace WindowsFormsImageEditor_VagundaFidler
             UpdateRightFrame();
         }
 
-        //flip verticaly
+        //flip horizontaly
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            ChangedPicture.MirroringHorizontaly();            
-            UpdateRightFrame();
-            //MessageBox.Show("clicked mirroring");
+            if (FlipHoriz == true) {
+                ChangedPicture.MirroringHorizontaly();
+                UpdateRightFrame();
+                FlipHoriz = false;
+            }else
+                MessageBox.Show("horizontal and vertical mirroring can be used only once for 1 loaded picture, If you want to use " +
+                         "it oncemore please Import new image");
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -104,12 +110,19 @@ namespace WindowsFormsImageEditor_VagundaFidler
             }
         }
 
-        //flip horizontaly
+        //flip Verticaly
         private void toolStripButton4_Click(object sender, EventArgs e)
-        {    
-            ChangedPicture.MirroringVerticaly();            
-            UpdateRightFrame();
-            
+        {
+            if (FlipHoriz == true)
+            {
+                ChangedPicture.MirroringVerticaly();
+                UpdateRightFrame();
+                FlipHoriz = false;
+            }else
+                MessageBox.Show("horizontal and vertical mirroring can be used only once for 1 loaded picture, If you want to use " +
+                    "it oncemore please Import new image");
+
+
         }
         //rotate 90 degree
         private void toolStripButton5_Click(object sender, EventArgs e)
@@ -129,7 +142,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {            
             ChangedPicture.Negativ();
             UpdateRightFrame();
-            LoadedImg = ChangedImg;
+            
         }
 
         //brightness increment
@@ -137,7 +150,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.BrightnessINC();
             UpdateRightFrame();
-            LoadedImg = ChangedImg;
+            
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -163,25 +176,25 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.BrightnessDEC();
             UpdateRightFrame();
-            LoadedImg = ChangedImg;
+            
         }
-
+        //Kontrast Inc
         private void toolStripButton3_Click_1(object sender, EventArgs e)
         {
             ChangedPicture.KonstrastINC();
             UpdateRightFrame();
-            LoadedImg = ChangedImg;
+           
         }
-
+        //Kontrast Dec
         private void toolStripButton10_Click(object sender, EventArgs e)
         {
             ChangedPicture.KonstrastDEC();
             UpdateRightFrame();
-            LoadedImg = ChangedImg;
+            
         }
-        //Kontrast Dec
+        
 
-        //Kontrast Inc
+        
 
     }
 }

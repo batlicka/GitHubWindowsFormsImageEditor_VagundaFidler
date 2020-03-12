@@ -62,13 +62,13 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
         public void MirroringHorizontaly() {
             //mirroring 24bit picture
-            VColor[,] pixelArrTmp = ChangedImg.pixelArr;
+            //VColor[,] pixelArrTmp = ChangedImg.pixelArr;
             if (ChangedImg.BM_BitsPerPixel == 24) {
                 for (uint column = 0; column < ChangedImg.BM_Height; column++)
                 {
                     for (uint row = 0; row < ChangedImg.BM_Width; row++)
                     {
-                        ChangedImg.pixelArr[column, row] = pixelArrTmp[ column, ChangedImg.BM_Width - row-1];
+                        ChangedImg.pixelArr[column, row] = LoadedImg.pixelArr[ column, LoadedImg.BM_Width - row-1];
                     }
                 }
             }            
@@ -83,11 +83,11 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             //VColor[,] pixelArrTmp = ChangedImg.pixelArr;
             //mirroring 24bit picture
-            if (LoadedImg.BM_BitsPerPixel == 24)
+            if (ChangedImg.BM_BitsPerPixel == 24)
             {
-                for (uint column = 0; column < LoadedImg.BM_Height; column++)
+                for (uint column = 0; column < ChangedImg.BM_Height; column++)
                 {
-                    for (uint row = 0; row < LoadedImg.BM_Width; row++)
+                    for (uint row = 0; row < ChangedImg.BM_Width; row++)
                     {
                         ChangedImg.pixelArr[column, row] = LoadedImg.pixelArr[LoadedImg.BM_Height - column - 1,  row ];
                     }
@@ -507,6 +507,71 @@ namespace WindowsFormsImageEditor_VagundaFidler
                     }
                 }
             }
+
+            if (    (LoadedImg.BM_BitsPerPixel == 8 )|| (LoadedImg.BM_BitsPerPixel == 1))
+            {
+                for (int y = 0; y < LoadedImg.BM_Height; y++)
+                {
+                    
+                        int r = LoadedImg.ColorPalette[y].R;
+                        int g = LoadedImg.ColorPalette[y].G;
+                        int b = LoadedImg.ColorPalette[y].B;
+
+                        double r_k = (double)r;
+                        double g_k = (double)g;
+                        double b_k = (double)b;
+
+                        r_k = r_k / 255;
+                        r_k -= 0.5;
+                        r_k *= 1.2;    //1.2 kontrast
+                        r_k += 0.5;
+                        r_k = r_k * 255;
+
+                        if (r_k > 255)
+                        {
+                            r_k = 255;
+                        }
+                        else if (r_k < 0)
+                        {
+                            r_k = 0;
+                        }
+
+                        g_k = g_k / 255;
+                        g_k -= 0.5;
+                        g_k *= 1.2;    //1.2 kontrast
+                        g_k += 0.5;
+                        g_k = g_k * 255;
+
+                        if (g_k > 255)
+                        {
+                            g_k = 255;
+                        }
+                        else if (g_k < 0)
+                        {
+                            g_k = 0;
+                        }
+
+                        b_k = b_k / 255;
+                        b_k -= 0.5;
+                        b_k *= 1.2;    //1.2 kontrast
+                        b_k += 0.5;
+                        b_k = b_k * 255;
+
+                        if (b_k > 255)
+                        {
+                            b_k = 255;
+                        }
+                        else if (b_k < 0)
+                        {
+                            b_k = 0;
+                        }
+
+                        ChangedImg.ColorPalette[y].R = (int)Math.Round(r_k);
+                        ChangedImg.ColorPalette[y].G = (int)Math.Round(g_k);
+                        ChangedImg.ColorPalette[y].B = (int)Math.Round(b_k);
+                    
+                }
+            }
             ChangedImg.SavePictureToFile(PathToChangedPicture);
 
             //after all ¨changes ubdate LoadImg by ChangedImg
@@ -579,6 +644,68 @@ namespace WindowsFormsImageEditor_VagundaFidler
                         ChangedImg.pixelArr[y, x].G = (int)Math.Round(g_k);
                         ChangedImg.pixelArr[y, x].B = (int)Math.Round(b_k);
                     }
+                }
+            }
+
+            if (    (LoadedImg.BM_BitsPerPixel == 8) || (LoadedImg.BM_BitsPerPixel == 1))
+            {
+                for (int y = 0; y < LoadedImg.BM_Height; y++)
+                {
+                        int r = LoadedImg.ColorPalette[y].R;
+                        int g = LoadedImg.ColorPalette[y].G;
+                        int b = LoadedImg.ColorPalette[y].B;
+
+                        double r_k = (double)r;
+                        double g_k = (double)g;
+                        double b_k = (double)b;
+
+                        r_k = r_k / 255;
+                        r_k -= 0.5;
+                        r_k *= 0.8;    //0.8 kontrast
+                        r_k += 0.5;
+                        r_k = r_k * 255;
+
+                        if (r_k > 255)
+                        {
+                            r_k = 255;
+                        }
+                        else if (r_k < 0)
+                        {
+                            r_k = 0;
+                        }
+
+                        g_k = g_k / 255;
+                        g_k -= 0.5;
+                        g_k *= 0.8;    //0.8 kontrast
+                        g_k += 0.5;
+                        g_k = g_k * 255;
+
+                        if (g_k > 255)
+                        {
+                            g_k = 255;
+                        }
+                        else if (g_k < 0)
+                        {
+                            g_k = 0;
+                        }
+
+                        b_k = b_k / 255;
+                        b_k -= 0.5;
+                        b_k *= 0.8;    //0.8 kontrast
+                        b_k += 0.5;
+                        b_k = b_k * 255;
+
+                        if (b_k > 255)
+                        {
+                            b_k = 255;
+                        }
+                        else if (b_k < 0)
+                        {
+                            b_k = 0;
+                        }
+                        ChangedImg.ColorPalette[y].R = (int)Math.Round(r_k);
+                        ChangedImg.ColorPalette[y].G = (int)Math.Round(g_k);
+                        ChangedImg.ColorPalette[y].B = (int)Math.Round(b_k);                    
                 }
             }
             ChangedImg.SavePictureToFile(PathToChangedPicture);

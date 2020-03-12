@@ -217,14 +217,16 @@
             // 
             this.toolStripButton3.Image = global::WindowsFormsImageEditor_VagundaFidler.Properties.Resources.KontrasInc;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton3.Size = new System.Drawing.Size(89, 22);
+            this.toolStripButton3.Text = "contrast inc";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click_1);
             // 
             // toolStripButton10
             // 
             this.toolStripButton10.Image = global::WindowsFormsImageEditor_VagundaFidler.Properties.Resources.KontrastDec;
             this.toolStripButton10.Name = "toolStripButton10";
-            this.toolStripButton10.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton10.Size = new System.Drawing.Size(92, 22);
+            this.toolStripButton10.Text = "contrast dec";
             this.toolStripButton10.Click += new System.EventHandler(this.toolStripButton10_Click);
             // 
             // label1
@@ -252,6 +254,7 @@
             this.image2.Size = new System.Drawing.Size(536, 327);
             this.image2.TabIndex = 6;
             this.image2.TabStop = false;
+            this.image2.WaitOnLoad = true;
             // 
             // image1
             // 
