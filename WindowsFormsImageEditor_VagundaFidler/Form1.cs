@@ -192,9 +192,19 @@ namespace WindowsFormsImageEditor_VagundaFidler
             UpdateRightFrame();
             
         }
-        
 
-        
+        private void AboutChangedImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("BM_size: ");
+
+
+
+        }
+
+        private void AboutOriginalImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
 
     }
 }

@@ -35,6 +35,8 @@
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AboutOriginalImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AboutChangedImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -103,9 +105,26 @@
             // 
             // aboutToolStripMenuItem
             // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AboutOriginalImageToolStripMenuItem,
+            this.AboutChangedImageToolStripMenuItem});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // AboutOriginalImageToolStripMenuItem
+            // 
+            this.AboutOriginalImageToolStripMenuItem.Name = "AboutOriginalImageToolStripMenuItem";
+            this.AboutOriginalImageToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.AboutOriginalImageToolStripMenuItem.Text = "about original image";
+            this.AboutOriginalImageToolStripMenuItem.Click += new System.EventHandler(this.AboutOriginalImageToolStripMenuItem_Click);
+            // 
+            // AboutChangedImageToolStripMenuItem
+            // 
+            this.AboutChangedImageToolStripMenuItem.Name = "AboutChangedImageToolStripMenuItem";
+            this.AboutChangedImageToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.AboutChangedImageToolStripMenuItem.Text = "about changed image";
+            this.AboutChangedImageToolStripMenuItem.Click += new System.EventHandler(this.AboutChangedImageToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -315,6 +334,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButton9;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.ToolStripButton toolStripButton10;
+        private System.Windows.Forms.ToolStripMenuItem AboutOriginalImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AboutChangedImageToolStripMenuItem;
     }
 }
 
