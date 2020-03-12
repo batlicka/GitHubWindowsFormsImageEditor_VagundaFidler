@@ -189,6 +189,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
         public void SavepixelArrToBuff()
         {
             BM_OffsetMoved = BM_Offset;
+            //save 24bit picture
             if (BM_BitsPerPixel == 24)
             {
                 for (int r = 0; r < BM_Height; r++)
@@ -211,8 +212,10 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 }
             }
 
+            //save 1 bit picture
             if (BM_BitsPerPixel == 1)
             {
+                //save 1 bit pixel array to buff
                 byte[] arr = new byte[RowLength];
                 BitArray bits;
                 BM_OffsetMoved = BM_Offset;
@@ -234,9 +237,25 @@ namespace WindowsFormsImageEditor_VagundaFidler
                     //before every iteratyion of "r"need to increment Offset                 
                     BM_OffsetMoved = BM_OffsetMoved + RowLength;
                 }
+
+                //save 1 bit color palette to buff
+                for (int col = 0; col < (SizeOfPallet / 4); col++)
+                {
+                    TempIndex = HeadersLength + col * 4 + 0;
+                    //blue
+                    buff[TempIndex] = Convert.ToByte(ColorPalette[col].B);
+
+                    //green 
+                    buff[HeadersLength + col * 4 + 1] = Convert.ToByte(ColorPalette[col].G);
+
+                    TempIndex3 = HeadersLength + col * 4 + 2;
+                    //red
+                    buff[TempIndex3] = Convert.ToByte(ColorPalette[col].R);
+                }
+
             }
-            
-            
+
+
             //save 8bit picture
             if (BM_BitsPerPixel == 8)
             {
@@ -254,7 +273,6 @@ namespace WindowsFormsImageEditor_VagundaFidler
                     //red
                     buff[TempIndex3] = Convert.ToByte(ColorPalette[col].R);
 
-                    ColorPalette[col] = new VColor(red, green, blue);
                 }
 
                 //save pixel array 

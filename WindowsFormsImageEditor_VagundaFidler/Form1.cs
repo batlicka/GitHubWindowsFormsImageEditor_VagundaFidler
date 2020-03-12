@@ -17,10 +17,13 @@ namespace WindowsFormsImageEditor_VagundaFidler
         private Changes ChangedPicture;
 
         public String PathToChangedPicture { get; set; }
+        public bool SettingsDone { get; set; }
 
         public Form1()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            PathToChangedPicture = "d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp";
+            SettingsDone = true;           
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -33,11 +36,6 @@ namespace WindowsFormsImageEditor_VagundaFidler
             Application.Exit();
         }
 
-        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void saveImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -45,28 +43,35 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
         private void importImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            String imageLocation = "";
-            try
+            if (SettingsDone == true)
             {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "BMP files(*.bmp)|*.bmp| All Files(*.*)|*.*";
-
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                String imageLocation = "";
+                try
                 {
-                    imageLocation = dialog.FileName;
-                    //loading of IMG to fram image1, just for view
-                    image1.ImageLocation = imageLocation;
+                    OpenFileDialog dialog = new OpenFileDialog();
+                    dialog.Filter = "BMP files(*.bmp)|*.bmp| All Files(*.*)|*.*";
 
-                    //loading of IMG to own created class BitMap for futher processing
-                    LoadedImg = new BitMap(imageLocation);
-                    ChangedImg = new BitMap(imageLocation);
-                    ChangedPicture= new Changes(LoadedImg, ChangedImg);
+                    if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        imageLocation = dialog.FileName;
+                        //loading of IMG to fram image1, just for view
+                        image1.ImageLocation = imageLocation;
+
+                        //loading of IMG to own created class BitMap for futher processing
+                        LoadedImg = new BitMap(imageLocation);
+                        ChangedImg = new BitMap(imageLocation);
+                        ChangedPicture = new Changes(LoadedImg, ChangedImg, PathToChangedPicture);
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception)
-            {
-                MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            else
+                MessageBox.Show("please frist go to Settings and set path to attached picture named change.bmp");
+
+
         }
         //Grey Scale
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -92,7 +97,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
             //reason described here
             //https://stackoverflow.com/questions/4803935/free-file-locked-by-new-bitmapfilepath/8701748#8701748
             Image img;
-            using (var bmpTemp = new Bitmap("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp"))
+            using (var bmpTemp = new Bitmap(PathToChangedPicture))
             {
                 img = new Bitmap(bmpTemp);
                 image2.Image = img;
@@ -113,16 +118,24 @@ namespace WindowsFormsImageEditor_VagundaFidler
             UpdateRightFrame();
         }
 
+        //rotate 90 again clockwise
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
-            ChangedPicture.Rotate90AgainClockvise();            
+            ChangedPicture.Rotate90AgainClockwise();            
             UpdateRightFrame();
         }
-
+        //negative
         private void toolStripButton7_Click(object sender, EventArgs e)
-        {
-            Changes ChangedPicture = new Changes(LoadedImg, ChangedImg);
+        {            
             ChangedPicture.Negativ();
+            UpdateRightFrame();
+            LoadedImg = ChangedImg;
+        }
+
+        //brightness increment
+        private void toolStripButton8_Click(object sender, EventArgs e)
+        {
+            ChangedPicture.BrightnessINC();
             UpdateRightFrame();
             LoadedImg = ChangedImg;
         }
@@ -138,11 +151,37 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 {
                     PathToChangedPicture = dialog.FileName;
                 }
+                SettingsDone = true;
             }
             catch (Exception)
             {
                 MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //Brightness Decrement
+        private void toolStripButton9_Click(object sender, EventArgs e)
+        {
+            ChangedPicture.BrightnessDEC();
+            UpdateRightFrame();
+            LoadedImg = ChangedImg;
+        }
+
+        private void toolStripButton3_Click_1(object sender, EventArgs e)
+        {
+            ChangedPicture.KonstrastINC();
+            UpdateRightFrame();
+            LoadedImg = ChangedImg;
+        }
+
+        private void toolStripButton10_Click(object sender, EventArgs e)
+        {
+            ChangedPicture.KonstrastDEC();
+            UpdateRightFrame();
+            LoadedImg = ChangedImg;
+        }
+        //Kontrast Dec
+
+        //Kontrast Inc
+
     }
 }

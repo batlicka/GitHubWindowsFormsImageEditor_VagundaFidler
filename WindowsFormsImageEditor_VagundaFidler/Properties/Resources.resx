@@ -118,19 +118,45 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="KontrastDec1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\KontrastDec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="preklopit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\preklopit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rotate90degree" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rotate90degree.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="preklopit_horizontaly" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\preklopit_horizontaly.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="KontrasInc1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\KontrasInc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rotate90degree" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rotate90degree.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="rotateMINUS90degree" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rotateMINUS90degree.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brightnessInc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\brightnessInc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  
+  <data name="KontrastDec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\KontrastDec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  
+  <data name="brightnessDec" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\brightnessDec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="KontrasInc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\KontrasInc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="negative" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\negative.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="preklopit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\preklopit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="KontrastDec2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\KontrastDec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
