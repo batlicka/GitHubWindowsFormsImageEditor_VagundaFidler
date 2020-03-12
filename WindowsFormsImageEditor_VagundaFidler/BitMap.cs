@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsImageEditor_VagundaFidler
 {
-    class BitMap 
+    class BitMap :ICloneable
     {
         //constructor for creating of copy. Copy you can youse whenever like this: myClass b = (myClass)a.Clone()
-        //public object Clone()
-        //{
-        //    return this.MemberwiseClone();
-        //}
-               
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+
         public BitMap(String fileName)
         {
             FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
@@ -191,24 +191,24 @@ namespace WindowsFormsImageEditor_VagundaFidler
             BM_OffsetMoved = BM_Offset;
             if (BM_BitsPerPixel == 24)
             {
-                //for (int r = 0; r < BM_Height; r++)
-                //{
-                //    for (int col = 0; col < BM_Width; col++)
-                //    {
-                //        TempIndex = BM_OffsetMoved + 3 * col + 0;
-                //        //b
-                //        byte tempB = Convert.ToByte(pixelArr[r, col].B);
-                //        buff[TempIndex] = Convert.ToByte(pixelArr[r, col].B);
-                //        //g
-                //        TempIndex2 = BM_OffsetMoved + 3 * col + 1;
-                //        buff[TempIndex2] = Convert.ToByte(pixelArr[r, col].G);
-                //        //r
-                //        TempIndex3 = BM_OffsetMoved + 3 * col + 2;
-                //        buff[TempIndex3] = Convert.ToByte(pixelArr[r, col].R);
-                //    }
-                //    //after first iteration we have to change Offset               
-                //    BM_OffsetMoved = Convert.ToUInt32(TempIndex3) + RowByteAlignment + 1;
-                //}
+                for (int r = 0; r < BM_Height; r++)
+                {
+                    for (int col = 0; col < BM_Width; col++)
+                    {
+                        TempIndex = BM_OffsetMoved + 3 * col + 0;
+                        //b
+                        byte tempB = Convert.ToByte(pixelArr[r, col].B);
+                        buff[TempIndex] = Convert.ToByte(pixelArr[r, col].B);
+                        //g
+                        TempIndex2 = BM_OffsetMoved + 3 * col + 1;
+                        buff[TempIndex2] = Convert.ToByte(pixelArr[r, col].G);
+                        //r
+                        TempIndex3 = BM_OffsetMoved + 3 * col + 2;
+                        buff[TempIndex3] = Convert.ToByte(pixelArr[r, col].R);
+                    }
+                    //after first iteration we have to change Offset               
+                    BM_OffsetMoved = Convert.ToUInt32(TempIndex3) + RowByteAlignment + 1;
+                }
             }
 
             if (BM_BitsPerPixel == 1)
@@ -342,6 +342,16 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 buff[buffHeighOffset + i] = destination[i];
             }
         }
+
+        public void SetSizeTObuff(uint newSize)
+        {
+            uint buffHeighOffset = 2;
+            byte[] destination = CopyIntToByteArray(newSize, 0);
+            for (int i = 0; i < 4; i++)
+            {
+                buff[buffHeighOffset + i] = destination[i];
+            }
+        }
         //other needfull variables
         public BinaryReader streamBits;
         public long TempIndex;
@@ -365,7 +375,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
         //BMP header\/
         public uint BM_Type { get; private set; } //2B-bfType        
-        public uint BM_Size { get; private set; } //4B-bfSize
+        public uint BM_Size { get; set; } //4B-bfSize
         public byte[] BM_SizeArr = new byte[4];
         //2B nic
         public uint Unused1 { get; private set; }

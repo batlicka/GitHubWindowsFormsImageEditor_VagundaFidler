@@ -37,15 +37,16 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.image2 = new System.Windows.Forms.PictureBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.image2 = new System.Windows.Forms.PictureBox();
             this.image1 = new System.Windows.Forms.PictureBox();
+            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.image2)).BeginInit();
@@ -108,38 +109,13 @@
             this.toolStripButton4,
             this.toolStripButton2,
             this.toolStripButton3,
-            this.toolStripButton5});
+            this.toolStripButton5,
+            this.toolStripButton6});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(959, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 69);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "original image";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(471, 69);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "image after change";
-            // 
-            // image2
-            // 
-            this.image2.Location = new System.Drawing.Point(474, 96);
-            this.image2.Name = "image2";
-            this.image2.Size = new System.Drawing.Size(473, 327);
-            this.image2.TabIndex = 6;
-            this.image2.TabStop = false;
             // 
             // toolStripButton1
             // 
@@ -191,6 +167,32 @@
             this.toolStripButton5.Text = "rotate90";
             this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 69);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "original image";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(471, 69);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "image after change";
+            // 
+            // image2
+            // 
+            this.image2.Location = new System.Drawing.Point(474, 96);
+            this.image2.Name = "image2";
+            this.image2.Size = new System.Drawing.Size(473, 327);
+            this.image2.TabIndex = 6;
+            this.image2.TabStop = false;
+            // 
             // image1
             // 
             this.image1.Location = new System.Drawing.Point(15, 96);
@@ -199,6 +201,16 @@
             this.image1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.image1.TabIndex = 0;
             this.image1.TabStop = false;
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton6.Text = "rotate90Clockvise";
+            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
             // 
             // Form1
             // 
@@ -245,6 +257,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
+        private System.Windows.Forms.ToolStripButton toolStripButton6;
     }
 }
 

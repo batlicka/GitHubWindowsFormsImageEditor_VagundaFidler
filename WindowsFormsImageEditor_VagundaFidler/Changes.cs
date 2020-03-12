@@ -91,9 +91,11 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 uint height = ChangedImg.BM_Height;
                 uint width = ChangedImg.BM_Width;
                 ChangedImg.BM_Width = height;
+                //change Width in buffer array
                 ChangedImg.SetWidthTObuff(height);
                 
                 ChangedImg.BM_Height = width;
+                //change Height in buffer array
                 ChangedImg.SetHeightTObuff(width);
 
                 ChangedImg.RowLength = Convert.ToUInt32(Math.Ceiling(ChangedImg.BM_Width * ChangedImg.BM_BitsPerPixel / 32.0) * 4); //number of bytes on the row
@@ -101,7 +103,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 ChangedImg.RowByteAlignment = ChangedImg.RowBitAlignment / 8;
                 
                 uint NewBuffLength = ChangedImg.BM_Offset + (ChangedImg.RowLength) * ChangedImg.BM_Height;
-                byte[] buffResized = new byte[NewBuffLength];
+                byte[] buffResized = new byte[NewBuffLength];                
 
                 VColor[,] pixelArrDest = new VColor[LoadedImg.BM_Width, LoadedImg.BM_Height];
                 for (int r = 0; r < LoadedImg.BM_Height; r++)
@@ -111,42 +113,62 @@ namespace WindowsFormsImageEditor_VagundaFidler
                         pixelArrDest[c, (LoadedImg.BM_Height - r - 1)] = LoadedImg.pixelArr[r, c];
                     }
                 }
-                //copy fist 52 bytes
+                //set new created pixelArr
+                ChangedImg.pixelArr = pixelArrDest;
+                //copy fist 52 bytes to 
                 Array.Copy(ChangedImg.buff, 0, buffResized, 0, ChangedImg.BM_Offset);
-
-                long TempIndex=0;
-                long TempIndex2=0;
-                long TempIndex3=0;
-                uint BM_OffsetMoved = ChangedImg.BM_Offset;
-                
-                for (int r = 0; r < ChangedImg.BM_Height; r++)
-                {
-                    for (int col = 0; col < ChangedImg.BM_Width; col++)
-                    {
-                        TempIndex = BM_OffsetMoved + 3 * col + 0;
-                        //b
-                        byte tempB = Convert.ToByte(pixelArrDest[r, col].B);
-                        buffResized[TempIndex] = Convert.ToByte(pixelArrDest[r, col].B);
-                        //g
-                        TempIndex2 = BM_OffsetMoved + 3 * col + 1;
-                        buffResized[TempIndex2] = Convert.ToByte(pixelArrDest[r, col].G);
-                        //r
-                        TempIndex3 = BM_OffsetMoved + 3 * col + 2;
-                        buffResized[TempIndex3] = Convert.ToByte(pixelArrDest[r, col].R);
-                    }
-                    //after reading of row, we have to change Offset               
-                    BM_OffsetMoved = Convert.ToUInt32(TempIndex3) + ChangedImg.RowByteAlignment + 1;
-                }
-
                 ChangedImg.buff = buffResized;
-                                
-                //ChangedImg.buff[x] = ChangedImg.BM_Height
+
+                //change BM_Size in buffer array
+                ChangedImg.BM_Size = NewBuffLength;
+                ChangedImg.SetSizeTObuff(ChangedImg.BM_Size);
+
                 ChangedImg.SavePictureToFile("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp");
 
             }
-            
+        }
+        public void Rotate90AgainClockvise()
+        {
+            if (ChangedImg.BM_BitsPerPixel == 24)
+            {
+                uint height = ChangedImg.BM_Height;
+                uint width = ChangedImg.BM_Width;
+                ChangedImg.BM_Width = height;
+                //change Width in buffer array
+                ChangedImg.SetWidthTObuff(height);
 
+                ChangedImg.BM_Height = width;
+                //change Height in buffer array
+                ChangedImg.SetHeightTObuff(width);
 
+                ChangedImg.RowLength = Convert.ToUInt32(Math.Ceiling(ChangedImg.BM_Width * ChangedImg.BM_BitsPerPixel / 32.0) * 4); //number of bytes on the row
+                ChangedImg.RowBitAlignment = (ChangedImg.RowLength * 8) - (ChangedImg.BM_Width * ChangedImg.BM_BitsPerPixel); //number of bits used for aligment of row
+                ChangedImg.RowByteAlignment = ChangedImg.RowBitAlignment / 8;
+
+                uint NewBuffLength = ChangedImg.BM_Offset + (ChangedImg.RowLength) * ChangedImg.BM_Height;
+                byte[] buffResized = new byte[NewBuffLength];
+
+                VColor[,] pixelArrDest = new VColor[LoadedImg.BM_Width, LoadedImg.BM_Height];
+                for (int r = 0; r < LoadedImg.BM_Height; r++)
+                {
+                    for (int c = 0; c < LoadedImg.BM_Width; c++)
+                    {
+                        pixelArrDest[c, r] = LoadedImg.pixelArr[r, LoadedImg.BM_Width-1 -c];
+                    }
+                }
+                //set new created pixelArr
+                ChangedImg.pixelArr = pixelArrDest;
+                //copy fist 52 bytes to 
+                Array.Copy(ChangedImg.buff, 0, buffResized, 0, ChangedImg.BM_Offset);
+                ChangedImg.buff = buffResized;
+
+                //change BM_Size in buffer array
+                ChangedImg.BM_Size = NewBuffLength;
+                ChangedImg.SetSizeTObuff(ChangedImg.BM_Size);
+
+                ChangedImg.SavePictureToFile("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp");
+
+            }
         }
     }
 }

@@ -14,8 +14,9 @@ namespace WindowsFormsImageEditor_VagundaFidler
     {
         private BitMap LoadedImg;
         private BitMap ChangedImg;
+        private Changes ChangedPicture; 
+
         
-        public bool ChangedPicture = true;//if is true show copy 1, if is false show copy 2
         public Form1()
         {
             InitializeComponent();
@@ -58,6 +59,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
                     //loading of IMG to own created class BitMap for futher processing
                     LoadedImg = new BitMap(imageLocation);
                     ChangedImg = new BitMap(imageLocation);
+                    ChangedPicture= new Changes(LoadedImg, ChangedImg);
                 }
             }
             catch (Exception)
@@ -114,8 +116,18 @@ namespace WindowsFormsImageEditor_VagundaFidler
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
             
-            Changes ChangedPicture = new Changes(LoadedImg, ChangedImg);
+           
             ChangedPicture.Rotate90();
+            BitMap LoadedImg2 = (BitMap)LoadedImg.Clone();
+            LoadedImg = LoadedImg2;
+            UpdateRightFrame();
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            ChangedPicture.Rotate90AgainClockvise();
+            BitMap LoadedImg2 = (BitMap)LoadedImg.Clone();
+            LoadedImg = LoadedImg2;
             UpdateRightFrame();
         }
     }
