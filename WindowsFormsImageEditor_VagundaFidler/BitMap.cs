@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsImageEditor_VagundaFidler
 {
-    class BitMap
+    class BitMap 
     {
-        //puvodni inicializace a nacteni souboru
-        //public static String fileName = "d:\\dokumenty\\dotnet\\obr\\jednoduchy1.bmp";
-        //FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-        //stream.Close(); ukonceni
-        //tmp
+        //constructor for creating of copy. Copy you can youse whenever like this: myClass b = (myClass)a.Clone()
+        //public object Clone()
+        //{
+        //    return this.MemberwiseClone();
+        //}
+               
         public BitMap(String fileName)
         {
             FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
@@ -47,7 +48,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
             BM_ByteColorUsed = (uint)(streamBits.ReadInt32());    //4B-biClrUsed
             BM_NeededByteToColor = (uint)(streamBits.ReadInt32());                              //4B-biClrImportant
 
-            RowLength = Convert.ToUInt32(Math.Ceiling(BM_Width * BM_BitsPerPixel / 32.0) * 4);
+            RowLength = Convert.ToUInt32(Math.Ceiling(BM_Width * BM_BitsPerPixel / 32.0) * 4); //number of bytes on row
             RowBitAlignment = (RowLength * 8) - (BM_Width * BM_BitsPerPixel); //number of bits used for aligment of row
             RowByteAlignment = RowBitAlignment / 8;                           //number of byts used for aligment of row
             pixelArr = new VColor[BM_Height, BM_Width];                       //array with indexes of R,G,B, mainy used for 24bit picture
@@ -190,24 +191,24 @@ namespace WindowsFormsImageEditor_VagundaFidler
             BM_OffsetMoved = BM_Offset;
             if (BM_BitsPerPixel == 24)
             {
-                for (int r = 0; r < BM_Height; r++)
-                {
-                    for (int col = 0; col < BM_Width; col++)
-                    {
-                        TempIndex = BM_OffsetMoved + 3 * col + 0;
-                        //b
-                        byte tempB = Convert.ToByte(pixelArr[r, col].B);
-                        buff[TempIndex] = Convert.ToByte(pixelArr[r, col].B);
-                        //g
-                        TempIndex2 = BM_OffsetMoved + 3 * col + 1;
-                        buff[TempIndex2] = Convert.ToByte(pixelArr[r, col].G);
-                        //r
-                        TempIndex3 = BM_OffsetMoved + 3 * col + 2;
-                        buff[TempIndex3] = Convert.ToByte(pixelArr[r, col].R);
-                    }
-                    //after first iteration we have to change Offset               
-                    BM_OffsetMoved = Convert.ToUInt32(TempIndex3) + RowByteAlignment + 1;
-                }
+                //for (int r = 0; r < BM_Height; r++)
+                //{
+                //    for (int col = 0; col < BM_Width; col++)
+                //    {
+                //        TempIndex = BM_OffsetMoved + 3 * col + 0;
+                //        //b
+                //        byte tempB = Convert.ToByte(pixelArr[r, col].B);
+                //        buff[TempIndex] = Convert.ToByte(pixelArr[r, col].B);
+                //        //g
+                //        TempIndex2 = BM_OffsetMoved + 3 * col + 1;
+                //        buff[TempIndex2] = Convert.ToByte(pixelArr[r, col].G);
+                //        //r
+                //        TempIndex3 = BM_OffsetMoved + 3 * col + 2;
+                //        buff[TempIndex3] = Convert.ToByte(pixelArr[r, col].R);
+                //    }
+                //    //after first iteration we have to change Offset               
+                //    BM_OffsetMoved = Convert.ToUInt32(TempIndex3) + RowByteAlignment + 1;
+                //}
             }
 
             if (BM_BitsPerPixel == 1)
@@ -288,6 +289,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
             fs.Close();
         }
 
+        //for loading of 1 bit picture
         public byte[] getIntFromBitArray(BitArray bitArray)
         {
             //https://stackoverflow.com/questions/5283180/how-can-i-convert-bitarray-to-single-int
@@ -310,6 +312,36 @@ namespace WindowsFormsImageEditor_VagundaFidler
             }
             return OutputArr;
         }
+        //for copiing Width and Height to buff
+        public byte[] CopyIntToByteArray(uint source, int offset)
+        {
+            byte[] destination = new byte[4];
+            //source: dec: 1419, bin: ‭010110001011‬ hex: 58b                       
+            destination[offset + 3] = (byte)(source >> 24); // fourth byte
+            destination[offset + 2] = (byte)(source >> 16); // third byte
+            destination[offset + 1] = (byte)(source >> 8); // read second 8 bits form source from end
+            destination[offset] = (byte)source; // read first 8 bits form source from end, 
+            return destination;
+            //transformed source example in hex bmp file in destination array : 8b | 05 | 00 | 00  
+        }
+
+        public void SetWidthTObuff(uint newWidth) {
+            uint buffWidthOffset = 18;
+            byte[] destination = CopyIntToByteArray(newWidth, 0);
+            for(int i = 0; i < 4; i++) {
+                buff[buffWidthOffset + i] = destination[i];
+            }
+        }
+
+        public void SetHeightTObuff(uint newHeight)
+        {
+            uint buffHeighOffset = 22;
+            byte[] destination = CopyIntToByteArray(newHeight, 0);
+            for (int i = 0; i < 4; i++)
+            {
+                buff[buffHeighOffset + i] = destination[i];
+            }
+        }
         //other needfull variables
         public BinaryReader streamBits;
         public long TempIndex;
@@ -318,10 +350,10 @@ namespace WindowsFormsImageEditor_VagundaFidler
         public byte[] buff;
         public VColor[] ColorPalette;
         public const uint HeadersLength = 54; //BitmapFileHeader + delka BITMAPINFOHEADER
-        public uint RowLength { get; private set; }
-        public uint RowBitAlignment { get; private set; }
-        public uint RowByteAlignment { get; private set; }
-        public uint BM_OffsetMoved { get; private set; }
+        public uint RowLength { get; set; }
+        public uint RowBitAlignment { get; set; }
+        public uint RowByteAlignment { get; set; }
+        public uint BM_OffsetMoved { get; set; }
 
         public uint SizeOfPallet { get; private set; }
         public VColor[,] pixelArr;
@@ -344,8 +376,8 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
         //BITMAPINFOHEADER \/
         public uint BM_NumberOfBit { get; private set; } //4B-biSize
-        public uint BM_Width { get; private set; } //4B-biWidth
-        public uint BM_Height { get; private set; }  //4B-biHeight
+        public uint BM_Width { get; set; } //4B-biWidth
+        public uint BM_Height { get; set; }  //4B-biHeight
         public uint BM_Planes { get; private set; } //2B-biPlanes
         public uint BM_BitsPerPixel { get; private set; }   //2B-biBitCount
         public uint BM_Compression { get; private set; }    //4B-biCompression (neřešíme)
@@ -354,6 +386,8 @@ namespace WindowsFormsImageEditor_VagundaFidler
         public uint BM_YOutPerMeter { get; private set; }    //4B-biYPelsPerMeter
         public uint BM_ByteColorUsed { get; private set; }    //4B-biClrUsed
         public uint BM_NeededByteToColor { get; private set; }    //4B-biClrImportant
+        
+        
 
     }
 }
