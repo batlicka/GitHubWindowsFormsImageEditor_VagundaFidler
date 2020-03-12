@@ -95,5 +95,8 @@
   <ItemGroup>
     <None Include="Resources\rotate90degree.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rotateMINUS90degree.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

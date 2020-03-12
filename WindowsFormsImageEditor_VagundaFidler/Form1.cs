@@ -14,17 +14,18 @@ namespace WindowsFormsImageEditor_VagundaFidler
     {
         private BitMap LoadedImg;
         private BitMap ChangedImg;
-        private Changes ChangedPicture; 
+        private Changes ChangedPicture;
 
-        
+        public String PathToChangedPicture { get; set; }
+
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-            
+        {           
+           
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -70,21 +71,15 @@ namespace WindowsFormsImageEditor_VagundaFidler
         //Grey Scale
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            Changes ChangedPicture = new Changes(LoadedImg, ChangedImg);
-            ChangedPicture.GreyScale();
+            ChangedPicture.GreyScale();            
             UpdateRightFrame();
-            
-            
         }
 
         //flip verticaly
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            
-            Changes ChangedPicture = new Changes(LoadedImg, ChangedImg);
-            ChangedPicture.MirroringHorizontaly();
+            ChangedPicture.MirroringHorizontaly();            
             UpdateRightFrame();
-            
             //MessageBox.Show("clicked mirroring");
         }
 
@@ -106,29 +101,48 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
         //flip horizontaly
         private void toolStripButton4_Click(object sender, EventArgs e)
-        {            
-            Changes ChangedPicture = new Changes(LoadedImg, ChangedImg);
-            ChangedPicture.MirroringVerticaly();
+        {    
+            ChangedPicture.MirroringVerticaly();            
             UpdateRightFrame();
             
         }
         //rotate 90 degree
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
-            
-           
-            ChangedPicture.Rotate90();
-            BitMap LoadedImg2 = (BitMap)LoadedImg.Clone();
-            LoadedImg = LoadedImg2;
+            ChangedPicture.Rotate90();            
             UpdateRightFrame();
         }
 
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
-            ChangedPicture.Rotate90AgainClockvise();
-            BitMap LoadedImg2 = (BitMap)LoadedImg.Clone();
-            LoadedImg = LoadedImg2;
+            ChangedPicture.Rotate90AgainClockvise();            
             UpdateRightFrame();
+        }
+
+        private void toolStripButton7_Click(object sender, EventArgs e)
+        {
+            Changes ChangedPicture = new Changes(LoadedImg, ChangedImg);
+            ChangedPicture.Negativ();
+            UpdateRightFrame();
+            LoadedImg = ChangedImg;
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "BMP files(*.bmp)|*.bmp| All Files(*.*)|*.*";
+
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    PathToChangedPicture = dialog.FileName;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An Error Occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

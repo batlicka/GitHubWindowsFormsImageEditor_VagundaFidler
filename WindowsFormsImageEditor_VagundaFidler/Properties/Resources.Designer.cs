@@ -99,5 +99,15 @@ namespace WindowsFormsImageEditor_VagundaFidler.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rotateMINUS90degree {
+            get {
+                object obj = ResourceManager.GetObject("rotateMINUS90degree", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

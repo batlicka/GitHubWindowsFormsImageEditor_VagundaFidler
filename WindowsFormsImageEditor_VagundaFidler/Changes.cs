@@ -52,25 +52,34 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 }                
             }
             ChangedImg.SavePictureToFile("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp");
+
+            //after all ¨changes ubdate LoadImg by ChangedImg
+            BitMap ClonedChangedImg = (BitMap)ChangedImg.Clone();
+            LoadedImg = ClonedChangedImg;
         }
 
         public void MirroringHorizontaly() {
             //mirroring 24bit picture
-            if (LoadedImg.BM_BitsPerPixel == 24) {
-                for (uint column = 0; column < LoadedImg.BM_Height; column++)
+            VColor[,] pixelArrTmp = ChangedImg.pixelArr;
+            if (ChangedImg.BM_BitsPerPixel == 24) {
+                for (uint column = 0; column < ChangedImg.BM_Height; column++)
                 {
-                    for (uint row = 0; row < LoadedImg.BM_Width; row++)
+                    for (uint row = 0; row < ChangedImg.BM_Width; row++)
                     {
-                        ChangedImg.pixelArr[column, row] = LoadedImg.pixelArr[ column, LoadedImg.BM_Width - row-1];
+                        ChangedImg.pixelArr[column, row] = pixelArrTmp[ column, ChangedImg.BM_Width - row-1];
                     }
                 }
             }            
             ChangedImg.SavePictureToFile("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp");
 
+            //after all ¨changes ubdate LoadImg by ChangedImg
+            BitMap ClonedChangedImg = (BitMap)ChangedImg.Clone();
+            LoadedImg = ClonedChangedImg;
         }
 
         public void MirroringVerticaly()
         {
+            //VColor[,] pixelArrTmp = ChangedImg.pixelArr;
             //mirroring 24bit picture
             if (LoadedImg.BM_BitsPerPixel == 24)
             {
@@ -84,6 +93,9 @@ namespace WindowsFormsImageEditor_VagundaFidler
             }
             ChangedImg.SavePictureToFile("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp");
 
+            //after all ¨changes ubdate LoadImg by ChangedImg
+            BitMap ClonedChangedImg = (BitMap)ChangedImg.Clone();
+            LoadedImg = ClonedChangedImg;
         }
 
         public void Rotate90() {
@@ -126,6 +138,9 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
                 ChangedImg.SavePictureToFile("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp");
 
+                //after all ¨changes ubdate LoadImg by ChangedImg
+                BitMap ClonedChangedImg = (BitMap)ChangedImg.Clone();
+                LoadedImg = ClonedChangedImg;
             }
         }
         public void Rotate90AgainClockvise()
@@ -169,7 +184,47 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
                 ChangedImg.SavePictureToFile("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp");
 
+                //after all ¨changes ubdate LoadImg by ChangedImg
+                BitMap ClonedChangedImg = (BitMap)ChangedImg.Clone();
+                LoadedImg = ClonedChangedImg;
             }
+        }
+
+        public void Negativ() {
+            if (LoadedImg.BM_BitsPerPixel == 24)
+            {
+                for (int y = 0; y < LoadedImg.BM_Height; y++)
+                {
+                    for (int x = 0; x < LoadedImg.BM_Width; x++)
+                    {
+                        int r = LoadedImg.pixelArr[y, x].R;
+                        int g = LoadedImg.pixelArr[y, x].G;
+                        int b = LoadedImg.pixelArr[y, x].B;
+
+                        ChangedImg.pixelArr[y, x].R = 255 - r;
+                        ChangedImg.pixelArr[y, x].G = 255 - g;
+                        ChangedImg.pixelArr[y, x].B = 255 - b;
+                    }
+                }
+            }
+
+            if (LoadedImg.BM_BitsPerPixel == 8) {
+                for (int y = 0; y < LoadedImg.ColorPalette.Length; y++)
+                {
+                        int r = LoadedImg.ColorPalette[y].R;
+                        int g = LoadedImg.ColorPalette[y].G;
+                        int b = LoadedImg.ColorPalette[y].B;
+
+                        ChangedImg.ColorPalette[y].R = 255 - r;
+                        ChangedImg.ColorPalette[y].G = 255 - g;
+                        ChangedImg.ColorPalette[y].B = 255 - b;
+                }
+            }
+            ChangedImg.SavePictureToFile("d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp");
+            //after all ¨changes ubdate LoadImg by ChangedImg
+            BitMap ClonedChangedImg = (BitMap)ChangedImg.Clone();
+            LoadedImg = ClonedChangedImg;
+
         }
     }
 }
