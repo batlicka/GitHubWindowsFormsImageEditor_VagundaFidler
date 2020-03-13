@@ -85,7 +85,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.GreyScale();            
             UpdateRightFrame();
-            FlipHorizVerti = false;
+            //FlipHorizVerti = false;
         }
 
         //flip horizontaly
@@ -96,6 +96,20 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 UpdateRightFrame();
                 FlipHorizVerti = false;
             }else
+                MessageBox.Show("In this version Horizontal and Vertical mirroring can be used only as first change on picture and MAX 1×. If you want to use it " +
+                         "please Import new image");
+        }
+
+        //flip Verticaly
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            if (FlipHorizVerti == true)
+            {
+                ChangedPicture.MirroringVerticaly();
+                UpdateRightFrame();
+                FlipHorizVerti = false;
+            }
+            else
                 MessageBox.Show("In this version Horizontal and Vertical mirroring can be used only as first change on picture and MAX 1×. If you want to use it " +
                          "please Import new image");
         }
@@ -116,26 +130,13 @@ namespace WindowsFormsImageEditor_VagundaFidler
             }
         }
 
-        //flip Verticaly
-        private void toolStripButton4_Click(object sender, EventArgs e)
-        {
-            if (FlipHorizVerti == true)
-            {
-                ChangedPicture.MirroringVerticaly();
-                UpdateRightFrame();
-                FlipHorizVerti = false;
-            }else
-                MessageBox.Show("In this version Horizontal and Vertical mirroring can be used only as first change on picture and MAX 1×. If you want to use it " +
-                         "please Import new image");
-
-
-        }
+        
         //rotate 90 degree
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
             ChangedPicture.Rotate90();            
             UpdateRightFrame();
-            FlipHorizVerti = false;
+            //FlipHorizVerti = false;
         }
 
         //rotate 90 again clockwise
@@ -143,14 +144,14 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.Rotate90AgainClockwise();            
             UpdateRightFrame();
-            FlipHorizVerti = false;
+            //FlipHorizVerti = false;
         }
         //negative
         private void toolStripButton7_Click(object sender, EventArgs e)
         {            
             ChangedPicture.Negativ();
             UpdateRightFrame();
-            FlipHorizVerti = false;
+            //FlipHorizVerti = false;
 
         }
 
@@ -159,7 +160,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.BrightnessINC();
             UpdateRightFrame();
-            FlipHorizVerti = false;
+            //FlipHorizVerti = false;
 
         }
 
@@ -186,7 +187,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.BrightnessDEC();
             UpdateRightFrame();
-            FlipHorizVerti = false;
+            //FlipHorizVerti = false;
 
         }
         //Kontrast Inc
@@ -194,7 +195,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.KonstrastINC();
             UpdateRightFrame();
-            FlipHorizVerti = false;
+            //FlipHorizVerti = false;
 
         }
         //Kontrast Dec
@@ -202,7 +203,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.KonstrastDEC();
             UpdateRightFrame();
-            FlipHorizVerti = false;
+            //FlipHorizVerti = false;
 
         }
 
