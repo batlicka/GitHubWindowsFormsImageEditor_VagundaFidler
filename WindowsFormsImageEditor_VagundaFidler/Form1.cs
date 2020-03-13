@@ -16,16 +16,19 @@ namespace WindowsFormsImageEditor_VagundaFidler
         private BitMap ChangedImg;
         private Changes ChangedPicture;
 
+        //this will not be change during running of program
+        private BitMap OriginalLoadedImg;
+
         public String PathToChangedPicture { get; set; }
         public bool SettingsDone { get; set; }
 
-        public bool FlipHoriz { get; set; }
+        public bool FlipHorizVerti { get; set; }
         public Form1()
         {
             InitializeComponent();
             PathToChangedPicture = "d:\\dokumenty\\Vojta\\UTB\\5_LET_IT\\multimedia\\OneDrive_2020-02-12\\Zpracovani rastrovych obrazku formatu BMP & PCX\\_Obrazky_zdroj\\BMP\\changed\\changed.bmp";
-            SettingsDone = false;
-            FlipHoriz = true;
+            SettingsDone = true;
+            FlipHorizVerti = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -61,8 +64,10 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
                         //loading of IMG to own created class BitMap for futher processing
                         LoadedImg = new BitMap(imageLocation);
+                        OriginalLoadedImg = new BitMap(imageLocation);
                         ChangedImg = new BitMap(imageLocation);
                         ChangedPicture = new Changes(LoadedImg, ChangedImg, PathToChangedPicture);
+                        FlipHorizVerti = true;
                     }
                 }
                 catch (Exception)
@@ -80,18 +85,19 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.GreyScale();            
             UpdateRightFrame();
+            FlipHorizVerti = false;
         }
 
         //flip horizontaly
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            if (FlipHoriz == true) {
+            if (FlipHorizVerti == true) {
                 ChangedPicture.MirroringHorizontaly();
                 UpdateRightFrame();
-                FlipHoriz = false;
+                FlipHorizVerti = false;
             }else
-                MessageBox.Show("horizontal and vertical mirroring can be used only once for 1 loaded picture, If you want to use " +
-                         "it oncemore please Import new image");
+                MessageBox.Show("In this version Horizontal and Vertical mirroring can be used only as first change on picture and MAX 1×. If you want to use it " +
+                         "please Import new image");
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -113,14 +119,14 @@ namespace WindowsFormsImageEditor_VagundaFidler
         //flip Verticaly
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
-            if (FlipHoriz == true)
+            if (FlipHorizVerti == true)
             {
                 ChangedPicture.MirroringVerticaly();
                 UpdateRightFrame();
-                FlipHoriz = false;
+                FlipHorizVerti = false;
             }else
-                MessageBox.Show("horizontal and vertical mirroring can be used only once for 1 loaded picture, If you want to use " +
-                    "it oncemore please Import new image");
+                MessageBox.Show("In this version Horizontal and Vertical mirroring can be used only as first change on picture and MAX 1×. If you want to use it " +
+                         "please Import new image");
 
 
         }
@@ -129,6 +135,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.Rotate90();            
             UpdateRightFrame();
+            FlipHorizVerti = false;
         }
 
         //rotate 90 again clockwise
@@ -136,13 +143,15 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.Rotate90AgainClockwise();            
             UpdateRightFrame();
+            FlipHorizVerti = false;
         }
         //negative
         private void toolStripButton7_Click(object sender, EventArgs e)
         {            
             ChangedPicture.Negativ();
             UpdateRightFrame();
-            
+            FlipHorizVerti = false;
+
         }
 
         //brightness increment
@@ -150,7 +159,8 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.BrightnessINC();
             UpdateRightFrame();
-            
+            FlipHorizVerti = false;
+
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -176,34 +186,68 @@ namespace WindowsFormsImageEditor_VagundaFidler
         {
             ChangedPicture.BrightnessDEC();
             UpdateRightFrame();
-            
+            FlipHorizVerti = false;
+
         }
         //Kontrast Inc
         private void toolStripButton3_Click_1(object sender, EventArgs e)
         {
             ChangedPicture.KonstrastINC();
             UpdateRightFrame();
-           
+            FlipHorizVerti = false;
+
         }
         //Kontrast Dec
         private void toolStripButton10_Click(object sender, EventArgs e)
         {
             ChangedPicture.KonstrastDEC();
             UpdateRightFrame();
-            
+            FlipHorizVerti = false;
+
         }
 
         private void AboutChangedImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("BM_size: " + ChangedImg.BM_Size);
-
-
-
+            MessageBox.Show(
+                "BMP header:" +
+                "\n  Type: " + ChangedImg.BM_Type +
+                "\n  Size: " + ChangedImg.BM_Size + " bajtů"+
+                "\n  Offset: " + ChangedImg.BM_Offset +
+                "\n ¨----------BMP info header:------" +
+                "\n  NumberOfBit: " + ChangedImg.BM_NumberOfBit +
+                "\n  Width: " + ChangedImg.BM_Width +
+                "px \n  Height: " + ChangedImg.BM_Height +
+                "px \n  Planes: " + ChangedImg.BM_Planes +
+                "\n  BitsPerPixel: " + ChangedImg.BM_BitsPerPixel +
+                "\n  Compression: " + ChangedImg.BM_Compression +
+                "\n  ByteSizeToCom: " + ChangedImg.BM_ByteSizeToCom +
+                "\n  XOutPerMeter: " + ChangedImg.BM_XOutPerMeter +
+                "\n  YOutPerMeter: " + ChangedImg.BM_YOutPerMeter +
+                "\n  ByteColorUsed: " + ChangedImg.BM_ByteColorUsed +
+                "\n  NeededByteToColor: " + ChangedImg.BM_NeededByteToColor
+                );
         }
 
         private void AboutOriginalImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("BM_size: " + LoadedImg.BM_Size);
+            MessageBox.Show(
+                  "BMP header:" +
+                  "\n  Type: " + OriginalLoadedImg.BM_Type +
+                  "\n  Size: " + OriginalLoadedImg.BM_Size + " bajtů" +
+                  "\n  Offset: " + OriginalLoadedImg.BM_Offset +
+                 "\n ----------BMP info header:------" +
+                  "\n  NumberOfBit: " + OriginalLoadedImg.BM_NumberOfBit +
+                  "\n  Width: " + OriginalLoadedImg.BM_Width +
+                  "px \n  Height: " + OriginalLoadedImg.BM_Height +
+                  "px \n  Planes: " + OriginalLoadedImg.BM_Planes +
+                  "\n  BitsPerPixel: " + OriginalLoadedImg.BM_BitsPerPixel +
+                  "\n  Compression: " + OriginalLoadedImg.BM_Compression +
+                  "\n  ByteSizeToCom: " + OriginalLoadedImg.BM_ByteSizeToCom +
+                  "\n  XOutPerMeter: " + OriginalLoadedImg.BM_XOutPerMeter +
+                  "\n  YOutPerMeter: " + OriginalLoadedImg.BM_YOutPerMeter +
+                  "\n  ByteColorUsed: " + OriginalLoadedImg.BM_ByteColorUsed +
+                  "\n  NeededByteToColor: " + OriginalLoadedImg.BM_NeededByteToColor
+                  );
         }
 
     }

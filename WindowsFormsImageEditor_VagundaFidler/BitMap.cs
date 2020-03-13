@@ -144,7 +144,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
                     BM_OffsetMoved = Convert.ToUInt32(TempIndex) + RowByteAlignment + 1;
                 }
 
-                //due to generalization, is created pixelArr for 8Bit picture
+                //due to generalization, is created pixelArr for 8Bit picture - but it is not used in applicaton
                 for (int r = 0; r < BM_Height; r++)
                 {
                     for (int col = 0; col < BM_Width; col++)
@@ -272,10 +272,9 @@ namespace WindowsFormsImageEditor_VagundaFidler
                     TempIndex3 = HeadersLength + col * 4 + 2;
                     //red
                     buff[TempIndex3] = Convert.ToByte(ColorPalette[col].R);
-
                 }
 
-                //save pixel array 
+                //save pixel Index array 
                 for (int r = 0; r < BM_Height; r++)
                 {
                     for (int col = 0; col < BM_Width; col++)

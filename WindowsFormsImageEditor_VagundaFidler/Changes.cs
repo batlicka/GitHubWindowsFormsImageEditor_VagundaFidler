@@ -42,8 +42,8 @@ namespace WindowsFormsImageEditor_VagundaFidler
                     }
                 }                
             }
-            if (LoadedImg.BM_BitsPerPixel == 8) {
-                for (int i = 0; i < ChangedImg.ColorPalette.Length; i++) {
+            if (    (LoadedImg.BM_BitsPerPixel == 8) || (LoadedImg.BM_BitsPerPixel == 1)) {
+                for (int i = 0; i < LoadedImg.ColorPalette.Length; i++) {
                     int r = LoadedImg.ColorPalette[i].R;
                     int g = LoadedImg.ColorPalette[i].G;
                     int b = LoadedImg.ColorPalette[i].B;
@@ -64,14 +64,26 @@ namespace WindowsFormsImageEditor_VagundaFidler
             //mirroring 24bit picture
             //VColor[,] pixelArrTmp = ChangedImg.pixelArr;
             if (ChangedImg.BM_BitsPerPixel == 24) {
-                for (uint column = 0; column < ChangedImg.BM_Height; column++)
+                for (uint column = 0; column < LoadedImg.BM_Height; column++)
                 {
-                    for (uint row = 0; row < ChangedImg.BM_Width; row++)
+                    for (uint row = 0; row < LoadedImg.BM_Width; row++)
                     {
                         ChangedImg.pixelArr[column, row] = LoadedImg.pixelArr[ column, LoadedImg.BM_Width - row-1];
                     }
                 }
-            }            
+            }
+
+            //8 bit and 1 bit picture doesnt allocate pixelArr
+            if ( (ChangedImg.BM_BitsPerPixel == 8) || (ChangedImg.BM_BitsPerPixel == 1) )
+            {
+                for (uint column = 0; column < LoadedImg.BM_Height; column++)
+                {
+                    for (uint row = 0; row < LoadedImg.BM_Width; row++)
+                    {
+                        ChangedImg.pixelIndexArr[column, row] = LoadedImg.pixelIndexArr[column, LoadedImg.BM_Width - row - 1];
+                    }
+                }
+            }
             ChangedImg.SavePictureToFile(PathToChangedPicture);
 
             //after all ¨changes ubdate LoadImg by ChangedImg
@@ -93,6 +105,17 @@ namespace WindowsFormsImageEditor_VagundaFidler
                     }
                 }
             }
+
+            if (   (ChangedImg.BM_BitsPerPixel == 8) || ((ChangedImg.BM_BitsPerPixel == 1)) )
+            {
+                for (uint column = 0; column < LoadedImg.BM_Height; column++)
+                {
+                    for (uint row = 0; row < LoadedImg.BM_Width; row++)
+                    {
+                        ChangedImg.pixelIndexArr[column, row] = LoadedImg.pixelIndexArr[LoadedImg.BM_Height - column - 1, row];
+                    }
+                }
+            }
             ChangedImg.SavePictureToFile(PathToChangedPicture);
 
             //after all ¨changes ubdate LoadImg by ChangedImg
@@ -102,7 +125,6 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
         public void Rotate90() {
             
-            if (ChangedImg.BM_BitsPerPixel == 24) {
                 uint height = ChangedImg.BM_Height;
                 uint width = ChangedImg.BM_Width;
                 ChangedImg.BM_Width = height;
@@ -118,8 +140,9 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 ChangedImg.RowByteAlignment = ChangedImg.RowBitAlignment / 8;
                 
                 uint NewBuffLength = ChangedImg.BM_Offset + (ChangedImg.RowLength) * ChangedImg.BM_Height;
-                byte[] buffResized = new byte[NewBuffLength];                
+                byte[] buffResized = new byte[NewBuffLength];
 
+            if (ChangedImg.BM_BitsPerPixel == 24) {
                 VColor[,] pixelArrDest = new VColor[ChangedImg.BM_Height, ChangedImg.BM_Width];
                 for (int r = 0; r < ChangedImg.BM_Width; r++)
                 {
@@ -129,26 +152,39 @@ namespace WindowsFormsImageEditor_VagundaFidler
                     }
                 }
                 //set new created pixelArr
-                ChangedImg.pixelArr = pixelArrDest;
-                //copy fist 52 bytes to 
-                Array.Copy(ChangedImg.buff, 0, buffResized, 0, ChangedImg.BM_Offset);
-                ChangedImg.buff = buffResized;
-
-                //change BM_Size in buffer array
-                ChangedImg.BM_Size = NewBuffLength;
-                ChangedImg.SetSizeTObuff(ChangedImg.BM_Size);
-
-                ChangedImg.SavePictureToFile(PathToChangedPicture);
-
-                //after all ¨changes ubdate LoadImg by ChangedImg
-                BitMap ClonedChangedImg = (BitMap)ChangedImg.Clone();
-                LoadedImg = ClonedChangedImg;
+                ChangedImg.pixelArr = pixelArrDest;                                
             }
+
+            if (    (ChangedImg.BM_BitsPerPixel == 8) || (ChangedImg.BM_BitsPerPixel == 1)  ){
+                uint[,] pixelIndexArrDest = new uint[ChangedImg.BM_Height, ChangedImg.BM_Width];
+                for (int r = 0; r < ChangedImg.BM_Width; r++)
+                {
+                    for (int c = 0; c < ChangedImg.BM_Height; c++)
+                    {
+                        pixelIndexArrDest[c, (ChangedImg.BM_Width - r - 1)] = ChangedImg.pixelIndexArr[r, c];
+                    }
+                }
+                //set new created pixelArr
+                ChangedImg.pixelIndexArr = pixelIndexArrDest;
+            }
+
+            //copy fist 52 bytes to 
+            Array.Copy(ChangedImg.buff, 0, buffResized, 0, ChangedImg.BM_Offset);
+            ChangedImg.buff = buffResized;
+
+            //change BM_Size in buffer array
+            ChangedImg.BM_Size = NewBuffLength;
+            ChangedImg.SetSizeTObuff(ChangedImg.BM_Size);
+
+            ChangedImg.SavePictureToFile(PathToChangedPicture);
+
+            //after all ¨changes ubdate LoadImg by ChangedImg
+            BitMap ClonedChangedImg = (BitMap)ChangedImg.Clone();
+            LoadedImg = ClonedChangedImg;
         }
         public void Rotate90AgainClockwise()
         {
-            if (ChangedImg.BM_BitsPerPixel == 24)
-            {
+            
                 uint height = ChangedImg.BM_Height;
                 uint width = ChangedImg.BM_Width;
                 ChangedImg.BM_Width = height;
@@ -166,16 +202,31 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 uint NewBuffLength = ChangedImg.BM_Offset + (ChangedImg.RowLength) * ChangedImg.BM_Height;
                 byte[] buffResized = new byte[NewBuffLength];
 
-                VColor[,] pixelArrDest = new VColor[ChangedImg.BM_Height,ChangedImg.BM_Width];
-                for (int r = 0; r < ChangedImg.BM_Width; r++)
-                {
-                    for (int c = 0; c < ChangedImg.BM_Height; c++)
+                if (ChangedImg.BM_BitsPerPixel == 24) {
+                    VColor[,] pixelArrDest = new VColor[ChangedImg.BM_Height, ChangedImg.BM_Width];
+                    for (int r = 0; r < ChangedImg.BM_Width; r++)
                     {
-                        pixelArrDest[c, r] = ChangedImg.pixelArr[r, ChangedImg.BM_Height - 1 -c];
+                        for (int c = 0; c < ChangedImg.BM_Height; c++)
+                        {
+                            pixelArrDest[c, r] = ChangedImg.pixelArr[r, ChangedImg.BM_Height - 1 - c];
+                        }
                     }
+                    //set new created pixelArr
+                    ChangedImg.pixelArr = pixelArrDest;
                 }
-                //set new created pixelArr
-                ChangedImg.pixelArr = pixelArrDest;
+                if (    (ChangedImg.BM_BitsPerPixel == 8) || (ChangedImg.BM_BitsPerPixel == 1)   )
+                {
+                    uint[,] pixelIndexArrDest = new uint[ChangedImg.BM_Height, ChangedImg.BM_Width];
+                    for (int r = 0; r < ChangedImg.BM_Width; r++)
+                    {
+                        for (int c = 0; c < ChangedImg.BM_Height; c++)
+                        {
+                            pixelIndexArrDest[c, r] = ChangedImg.pixelIndexArr[r, ChangedImg.BM_Height - 1 - c];
+                        }
+                    }
+                    //set new created pixelArr
+                    ChangedImg.pixelIndexArr = pixelIndexArrDest;
+                }
                 //copy fist 52 bytes to 
                 Array.Copy(ChangedImg.buff, 0, buffResized, 0, ChangedImg.BM_Offset);
                 ChangedImg.buff = buffResized;
@@ -189,7 +240,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
                 //after all ¨changes ubdate LoadImg by ChangedImg
                 BitMap ClonedChangedImg = (BitMap)ChangedImg.Clone();
                 LoadedImg = ClonedChangedImg;
-            }
+            
         }
 
         public void Negativ() {
@@ -510,7 +561,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
             if (    (LoadedImg.BM_BitsPerPixel == 8 )|| (LoadedImg.BM_BitsPerPixel == 1))
             {
-                for (int y = 0; y < LoadedImg.BM_Height; y++)
+                for (int y = 0; y < LoadedImg.ColorPalette.Length; y++)
                 {
                     
                         int r = LoadedImg.ColorPalette[y].R;
@@ -649,7 +700,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
             if (    (LoadedImg.BM_BitsPerPixel == 8) || (LoadedImg.BM_BitsPerPixel == 1))
             {
-                for (int y = 0; y < LoadedImg.BM_Height; y++)
+                for (int y = 0; y < LoadedImg.ColorPalette.Length; y++)
                 {
                         int r = LoadedImg.ColorPalette[y].R;
                         int g = LoadedImg.ColorPalette[y].G;
