@@ -195,7 +195,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
         private void AboutChangedImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("BM_size: ");
+            MessageBox.Show("BM_size: " + ChangedImg.BM_Size);
 
 
 
@@ -203,7 +203,7 @@ namespace WindowsFormsImageEditor_VagundaFidler
 
         private void AboutOriginalImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("BM_size: " + LoadedImg.BM_Size);
         }
 
     }
